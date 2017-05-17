@@ -9,4 +9,4 @@ while (<STDIN>) {
     domens_count::process($_);
 }
 
-domens_count::print_result();
+print domens_count::print_result();

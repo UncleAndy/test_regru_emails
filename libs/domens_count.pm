@@ -5,6 +5,11 @@ use Modern::Perl;
 my $result = {};
 my $invalid = 0;
 
+sub clean {
+    $result = {};
+    $invalid = 0;
+}
+
 # Обработка email, анализ домена и увеличение счетчиков
 sub process {
     my $email = shift;
@@ -26,11 +31,15 @@ sub process {
 
 # Выводим результат с сортировкой доменов по количеству
 sub print_result {
+    my $result_str = '';
+
     foreach my $domen ( sort { $result->{$b} <=> $result->{$a} } keys %{$result} ) {
-        print $domen, ":\t", $result->{ $domen }, "\n";
+        $result_str .= $domen.":\t".$result->{ $domen }."\n";
     };
 
-    print "INVALID:\t", $invalid, "\n";
+    $result_str .=  "INVALID:\t".$invalid."\n" if $invalid > 0;
+
+    return $result_str;
 }
 
 1;
