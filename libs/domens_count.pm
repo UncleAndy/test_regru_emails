@@ -19,29 +19,18 @@ sub process {
             $invalid++;
         }
         else {
-            _inc_domen($domen);
+            $result->{ $domen }++;
         }
     }
 }
 
+# Выводим результат с сортировкой доменов по количеству
 sub print_result {
-    # Выводим с сортировкой доменов
     foreach my $domen ( sort { $result->{$b} <=> $result->{$a} } keys %{$result} ) {
-        print $domen, ": ", $result->{ $domen }, "\n";
+        print $domen, ":\t", $result->{ $domen }, "\n";
     };
 
-    print "INVALID: ", $invalid, "\n";
-}
-
-sub _inc_domen {
-    my $domen = shift;
-
-    if ( defined( $result->{ $domen } ) ) {
-        $result->{ $domen }++;
-    }
-    else {
-        $result->{ $domen } = 1;
-    };
+    print "INVALID:\t", $invalid, "\n";
 }
 
 1;
